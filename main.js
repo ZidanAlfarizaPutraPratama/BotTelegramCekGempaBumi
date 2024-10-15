@@ -8,6 +8,9 @@ const options = {
 
 const BotGempa = new TelegramBot(token, options);
 
+// Log to indicate the bot is running
+console.log("Bot Gempa is running...");
+
 // Endpoint for earthquake data
 const earthquakeAPI = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json";
 
@@ -33,7 +36,7 @@ BotGempa.on("message", async (msg) => {
                 BotGempa.sendMessage(chatId, "Tidak ada gempa bumi hari ini.");
             }
         } catch (error) {
-            console.error(error);
+            console.error("Error fetching earthquake data:", error);
             BotGempa.sendMessage(chatId, "Terjadi kesalahan saat mengambil data gempa.");
         }
     }
