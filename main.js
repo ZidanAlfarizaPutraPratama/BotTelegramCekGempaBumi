@@ -25,12 +25,20 @@ BotGempa.on("message", async (msg) => {
             const data = await response.json();
             
             // Check if the data contains the expected structure
-            if (data.InformasiGempa && data.InformasiGempa.length > 0) {
-                let message = "Gempa bumi hari ini:\n";
-                data.InformasiGempa.forEach(earthquake => {
-                    const { Magnitude, Wilayah, Waktu } = earthquake;
-                    message += `Magnitude: ${Magnitude}, Location: ${Wilayah}, Time: ${new Date(Waktu).toLocaleString()}\n`;
-                });
+            if (data.Infogempa && data.Infogempa.gempa) {
+                const earthquake = data.Infogempa.gempa;
+                const { Tanggal, Jam, Magnitude, Wilayah, Lintang, Bujur, Kedalaman, Dirasakan } = earthquake;
+                
+                const message = `Gempa bumi hari ini:\n` +
+                                `Tanggal: ${Tanggal}\n` +
+                                `Jam: ${Jam}\n` +
+                                `Magnitude: ${Magnitude}\n` +
+                                `Wilayah: ${Wilayah}\n` +
+                                `Lintang: ${Lintang}\n` +
+                                `Bujur: ${Bujur}\n` +
+                                `Kedalaman: ${Kedalaman}\n` +
+                                `Dirasakan: ${Dirasakan}\n`;
+                
                 BotGempa.sendMessage(chatId, message);
             } else {
                 BotGempa.sendMessage(chatId, "Tidak ada gempa bumi hari ini.");
